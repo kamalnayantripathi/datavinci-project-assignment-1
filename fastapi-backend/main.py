@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import models
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
+import os
+import uvicorn
 
 app = FastAPI()
 
@@ -25,6 +27,11 @@ app.add_middleware(
 @app.get("/")
 def read_root():
     return {"message": "Hello fastapi and python"}
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000)) 
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
+
 
 def get_db():
     db = SessionLocal()
