@@ -5,7 +5,8 @@ export default function Home() {
 
   const [allCampaigns, setAllCampaigns] = useState([])
   const [campaigns, setCampaigns] = useState([]);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   async function fetchData(){
@@ -20,6 +21,7 @@ export default function Home() {
       }
     } catch (error) {
       console.log(error)
+      setError(error.message)
     } finally{
       setLoading(false)
     }
@@ -100,6 +102,7 @@ export default function Home() {
         </tbody>
         }
       </table>
+      { error && <p className="px-4 py-2 text-red-600 leading-10">{error}</p>} 
       </div>
     </main>
     </>
