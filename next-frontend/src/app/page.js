@@ -5,9 +5,11 @@ export default function Home() {
 
   const [allCampaigns, setAllCampaigns] = useState([])
   const [campaigns, setCampaigns] = useState([]);
+  const [loading, setLoading] = useState(false)
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   async function fetchData(){
+    setLoading(true)
     try {
       const response = await fetch(`${apiUrl}/campaigns`)
       if(response.ok){
@@ -18,6 +20,8 @@ export default function Home() {
       }
     } catch (error) {
       console.log(error)
+    } finally{
+      setLoading(false)
     }
   }
 
@@ -71,6 +75,13 @@ export default function Home() {
             <th className="px-4 py-2 text-left">Impressions</th>
           </tr>
         </thead>
+        { loading ? 
+          <tbody>
+            <tr className="bg-white leading-10">
+              <td className="px-4 py-2">Loading please wait...</td>
+            </tr>
+          </tbody>
+         :
         <tbody>
           { campaigns.map((campaign, index) => 
           <tr 
@@ -87,6 +98,7 @@ export default function Home() {
           </tr>
         )}
         </tbody>
+        }
       </table>
       </div>
     </main>
