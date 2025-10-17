@@ -15,12 +15,12 @@ export default function Home() {
       const response = await fetch(`${apiUrl}/campaigns`)
       if(response.ok){
         const data = await response.json();
-        console.log(data)
+        // console.log(data)
         setCampaigns(data)
         setAllCampaigns(data)
       }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       setError(error.message)
     } finally{
       setLoading(false)
