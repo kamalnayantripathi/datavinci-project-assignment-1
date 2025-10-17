@@ -5,15 +5,20 @@ from database import engine, SessionLocal
 from sqlalchemy.orm import Session
 import os
 import uvicorn
+from dotenv import load_dotenv
 
 app = FastAPI()
 
 # Create all tables
 # models.Base.metadata.create_all(bind=engine)
 
+
+load_dotenv()
+ALLOWED_FRONTEND_URL = os.getenv("FRONTEND_URL")
+
 origins = [
     "http://localhost:3000",   
-    "https://datavinci-project-assignment-1.vercel.app/", 
+    ALLOWED_FRONTEND_URL,
 ]
 
 app.add_middleware(
