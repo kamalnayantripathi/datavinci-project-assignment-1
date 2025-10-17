@@ -5,10 +5,11 @@ export default function Home() {
 
   const [allCampaigns, setAllCampaigns] = useState([])
   const [campaigns, setCampaigns] = useState([]);
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   async function fetchData(){
     try {
-      const response = await fetch("http://127.0.0.1:8000/campaigns")
+      const response = await fetch(`${apiUrl}/campaigns`)
       if(response.ok){
         const data = await response.json();
         console.log(data)
